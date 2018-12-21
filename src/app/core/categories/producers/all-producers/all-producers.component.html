@@ -1,0 +1,29 @@
+<h3>
+  All-producers
+</h3>
+<h5>Add producers:</h5>
+<form #producerForm="ngForm" (ngSubmit)="createProducer(producerForm)">
+  <label>Title</label>
+  <input type="text" ngModel name="title">
+  <label>All about</label>
+  <input type="text" ngModel name="about_all">
+  <label>All short</label>
+  <input type="text" ngModel name="about_short">
+  <label>Photo</label>
+  <input type="text" ngModel name="photo">
+  <label>Country</label>
+  <input type="text" ngModel name="country">
+  <input type="submit" value="Add producer">
+</form>
+
+<div *ngFor="let producer of producers">
+  <app-single-producer
+    [producerInput]="producer">
+
+  </app-single-producer>
+
+  <button (click)="removeProducer(producer)">
+    Delete</button>
+
+
+</div>

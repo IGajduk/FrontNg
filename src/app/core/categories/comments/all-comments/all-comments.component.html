@@ -1,0 +1,18 @@
+<h3>
+  All-comments
+</h3>
+<h5>Add Comment:</h5>
+<form #commentForm="ngForm" (ngSubmit)="createComment(commentForm)">
+  <label>Text</label>
+  <input type="text" ngModel name="text">
+  <label>User</label>
+  <input type="text" ngModel name="user">
+  <label>Product</label>
+  <input type="text" ngModel name="product">
+  <input type="submit" value="Add comment">
+</form>
+<div *ngFor="let comment of comments">
+  <app-single-comment [commentInput]="comment">
+  </app-single-comment>
+  <button (click)="removeComment(comment)">Delete</button>
+</div>

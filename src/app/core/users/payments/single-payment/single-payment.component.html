@@ -1,0 +1,9 @@
+<ul>
+  <li><a [routerLink]="'/payments/single/' + paymentInput._id">Show Payment</a></li>
+  <li><a [routerLink]="'/payments/edit/' + paymentInput._id" [queryParams]="paymentInput">Update Payment</a></li>
+  <li>{{paymentInput.user}}</li>
+  <li>{{paymentInput.date}}</li>
+  <li>{{paymentInput.order}}</li>
+  <li>{{paymentInput.sum}}</li>
+</ul>
+

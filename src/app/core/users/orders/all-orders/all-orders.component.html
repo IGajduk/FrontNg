@@ -1,0 +1,23 @@
+<h3>All orders</h3>
+<h4>Add order</h4>
+<form #orderForm="ngForm" (ngSubmit)="createOrdr(orderForm)">
+  <label>Products:</label><br>
+  <input type="text" ngModel name="products"><br>
+  <label>User:</label><br>
+  <input type="text" ngModel name="user"><br>
+  <label>Address:</label><br>
+  <input type="text" ngModel name="address"><br>
+  <label>Phone:</label><br>
+  <input type="text" ngModel name="phone"><br>
+  <label>Details:</label><br>
+  <textarea ngModel name="details"></textarea><br>
+  <input type="submit" value="Add Order"><br>
+</form>
+<div *ngFor="let order of orders">
+  <app-single-order
+    [orderInput]="order"
+  >
+  </app-single-order>
+  <button (click)="removeOrder(order)">
+    Delete</button>
+</div>

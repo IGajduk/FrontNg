@@ -1,0 +1,11 @@
+<ul>
+  <li><a [routerLink]="'/users/profile/' + userInput._id">Show user</a></li>
+  <li><a [routerLink]="'/users/edit/' + userInput._id" [queryParams]="userInput">Update user</a></li>
+  <li>{{userInput.firstName}}</li>
+  <li>{{userInput.surname}}</li>
+  <li>{{userInput.email}}</li>
+  <li>{{userInput.phone}}</li>
+  <li>{{userInput.adress}}</li>
+  <li>{{userInput.password}}</li>
+  <li>{{userInput.role}}</li>
+</ul>

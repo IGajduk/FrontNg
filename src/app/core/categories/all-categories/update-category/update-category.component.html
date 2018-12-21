@@ -1,0 +1,5 @@
+<form *ngIf="category" #categoryForm="ngForm" (ngSubmit)="updateCategory(categoryForm)">
+  <label>Title</label>
+  <input type="text" [(ngModel)]="category.title" name="title">
+  <input type="submit" value="Update category">
+</form>

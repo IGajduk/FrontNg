@@ -1,0 +1,13 @@
+<form *ngIf="producer" #producerForm="ngForm" (ngSubmit)="updateProducer(producerForm)">
+  <label>Title</label>
+  <input type="text" [(ngModel)]="producer.title" name="title">
+  <label>Photo</label>
+  <input type="text" [(ngModel)]="producer.photo" name="photo">
+  <label>About all</label>
+  <input type="text" [(ngModel)]="producer.about_all" name="about_all">
+  <label>About short</label>
+  <input type="text" [(ngModel)]="producer.about_short" name="about_short">
+  <label>Country</label>
+  <input type="text" [(ngModel)]="producer.country" name="country">
+  <input type="submit" value="Update producer">
+</form>

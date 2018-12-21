@@ -1,0 +1,8 @@
+<form *ngIf="payment" #paymentForm="ngForm" (ngSubmit)="updatePay(paymentForm)">
+  <label>Sum:</label><br>
+  <input type="text" [(ngModel)]="payment.sum" name="sum"><br>
+
+
+
+  <input type="submit" value="Update payment">
+</form>

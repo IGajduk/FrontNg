@@ -1,0 +1,9 @@
+<ul>
+  <li><a [routerLink]="'/comments/single/' + commentInput._id">{{commentInput._id}}</a></li>
+  <li>{{commentInput.product}}</li>
+  <li>{{commentInput.date}}</li>
+  <li>{{commentInput.text}}</li>
+  <li>{{commentInput.user}}</li>
+  <li><a [routerLink]="'/comments/edit/' + commentInput._id"
+  [queryParams]="commentInput">Edit</a></li>
+</ul>

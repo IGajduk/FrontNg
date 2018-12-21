@@ -1,0 +1,11 @@
+<ul>
+  <li><a [routerLink]="'/orders/single/' + orderInput._id">Show Order</a></li>
+  <li>{{orderInput.products}}</li>
+  <li>{{orderInput.date}}</li>
+  <li>{{orderInput.phone}}</li>
+  <li>{{orderInput.address}}</li>
+  <li>{{orderInput.user}}</li>
+  <li>{{orderInput.details}}</li>
+  <li>{{orderInput.payment}}</li>
+  <li><a [routerLink]="'/orders/edit/' + orderInput._id" [queryParams]="orderInput">Edit Order</a></li>
+</ul>

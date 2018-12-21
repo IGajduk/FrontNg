@@ -1,0 +1,20 @@
+<h3>
+  All-payments
+</h3>
+<h5>Add Payment:</h5>
+<form #paymentForm="ngForm" (ngSubmit)="createPay(paymentForm)">
+  <label>Ord</label>
+  <input type="text" ngModel name="order">
+  <label>User</label>
+  <input type="text" ngModel name="user">
+  <label>Sum</label>
+  <input type="text" ngModel name="sum">
+  <input type="submit" value="Add payment">
+</form>
+
+
+<div *ngFor="let payment of payments">
+  <app-single-payment [paymentInput]="payment">
+  </app-single-payment>
+  <button (click)="removePayment(payment)">Delete</button>
+</div>

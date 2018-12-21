@@ -1,0 +1,19 @@
+<ul *ngIf="productInput">
+  <li><a [routerLink]="'/products/single/' + productInput._id">{{productInput._id}}</a></li>
+  <li>{{productInput.title}}</li>
+  <li>{{productInput.price}}</li>
+  <li>{{productInput.category}}</li>
+  <li>{{productInput.producer}}</li>
+  <li>{{productInput.colors}}</li>
+  <li>{{productInput.photos}}</li>
+  <li>{{productInput.quantity}}</li>
+  <li>{{productInput.about_all}}</li>
+  <li>{{productInput.about_short}}</li>
+  <li>{{productInput.date}}</li>
+  <li>{{productInput.gender}}</li>
+  <li>{{productInput.sale}}</li>
+  <li>{{productInput.show}}</li>
+  <li><a [routerLink]="'/products/edit/' + productInput._id"
+         [queryParams]="productInput">Изменить товар</a></li>
+</ul>
+
