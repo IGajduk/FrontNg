@@ -1,0 +1,6 @@
+<ul>
+  <li><a [routerLink]="'single-edit/' + categoryInput._id"
+  [queryParams]="categoryInput">{{categoryInput._id}}</a></li>
+  <li>{{categoryInput.title}}</li>
+  <a [routerLink]="'/categories/products/' + categoryInput._id">Увидеть товары этой категории</a>
+</ul>

@@ -1,0 +1,29 @@
+<form *ngIf="product" #productForm="ngForm" (ngSubmit)="updateProduct(productForm)">
+  <label>Title</label><br>
+  <input type="text" [(ngModel)]="product.title" name="title"><br>
+  <label>Price</label><br>
+  <input type="text" [(ngModel)]="product.price" name="price"><br>
+  <label>category</label><br>
+  <input type="text" [(ngModel)]="product.category" name="category"><br>
+    <label>producer</label><br>
+  <input type="text" [(ngModel)]="product.producer" name="producer"><br>
+    <label>Quantity</label><br>
+  <input type="text" [(ngModel)]="product.quantity" name="quantity"><br>
+    <label>colors</label><br>
+  <input type="text" [(ngModel)]="product.colors" name="colors"><br>
+    <label>photos</label><br>
+  <input type="text" [(ngModel)]="product.photos" name="photos"><br>
+    <label>about_all</label><br>
+  <textarea [(ngModel)]="product.about_all" name="about_all"></textarea><br>
+    <label>about_short</label><br>
+  <input type="text" [(ngModel)]="product.about_short" name="about_short"><br>
+    <label>sale</label><br>
+  <input type="text" [(ngModel)]="product.sale" name="sale"><br>
+    <label>show</label><br>
+  <input type="text" [(ngModel)]="product.show" name="show"><br>
+
+  <input type="submit" value="Update product">
+</form>
+
+
+

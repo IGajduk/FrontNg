@@ -1,0 +1,25 @@
+<h3>All users</h3>
+<h4>Add user</h4>
+<form #userForm="ngForm" (ngSubmit)="createUs(userForm)">
+  <label>FirstName:</label><br>
+  <input type="text" ngModel name="firstName"><br>
+  <label>Surname:</label><br>
+  <input type="text" ngModel name="surname"><br>
+  <label>Email:</label><br>
+  <input type="text" ngModel name="email"><br>
+  <label>Phone:</label><br>
+  <input type="text" ngModel name="phone"><br>
+  <label>Adress:</label><br>
+  <input type="text" ngModel name="adress"><br>
+  <label>Password:</label><br>
+  <input type="text" ngModel name="password"><br>
+  <input type="submit" value="Add user"><br>
+</form>
+<div *ngFor="let user of users">
+  <app-single-user
+    [userInput]="user"
+  >
+  </app-single-user>
+  <button (click)="removeUser(user)">
+    Delete</button>
+</div>

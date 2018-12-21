@@ -1,0 +1,10 @@
+<ul>
+  <li><a [routerLink]="'/producers/single/' + producerInput._id">Open {{producerInput.title}}</a></li>
+  <li>{{producerInput.title}}</li>
+  <li>{{producerInput.about_short}}</li>
+  <li>{{producerInput.about_all}}</li>
+  <li>{{producerInput.country}}</li>
+  <li>{{producerInput.photo}}</li>
+  <li><a [routerLink]="'/producers/edit/' + producerInput._id"
+         [queryParams]="producerInput">Edit producer info</a></li>
+</ul>

@@ -1,0 +1,20 @@
+<h3>
+  All-categories
+</h3>
+<div *ngIf="principalUser">
+<h5>Add category:</h5>
+<form #categoryForm="ngForm" (ngSubmit)="createCategory(categoryForm)">
+  <label>Title</label>
+  <input type="text" ngModel name="title">
+  <input type="submit" value="Add category">
+</form>
+</div>
+<div *ngFor="let category of categories">
+<app-category
+  [categoryInput]="category"
+>
+</app-category>
+  <button *ngIf="principalUser" (click)="removeCategory(category)">
+    Delete</button>
+
+</div>

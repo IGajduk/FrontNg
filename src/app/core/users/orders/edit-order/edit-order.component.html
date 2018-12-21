@@ -1,0 +1,12 @@
+<form *ngIf="order" #orderForm="ngForm" (ngSubmit)="updateUs(orderForm)">
+  <label>Phone:</label><br>
+  <input type="text" [(ngModel)]="order.phone" name="phone"><br>
+  <label>User:</label><br>
+  <input type="text" [(ngModel)]="order.user" name="user"><br>
+  <label>Details:</label><br>
+  <input type="text" [(ngModel)]="order.details" name="details"><br>
+  <label>Phone:</label><br>
+  <input type="text" [(ngModel)]="order.products" name="phone"><br>
+  <input type="submit" value="Update order">
+</form>
+

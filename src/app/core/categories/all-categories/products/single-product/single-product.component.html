@@ -1,0 +1,18 @@
+<ul>
+  <li><a [routerLink]="'/products/single/' + singleProductInput._id">{{singleProductInput._id}}</a></li>
+  <li>{{singleProductInput.title}}</li>
+  <li>{{singleProductInput.price}}</li>
+  <li>{{singleProductInput.category}}</li>
+  <li>{{singleProductInput.producer}}</li>
+  <li>{{singleProductInput.colors}}</li>
+  <li>{{singleProductInput.photos}}</li>
+  <li>{{singleProductInput.quantity}}</li>
+  <li>{{singleProductInput.about_all}}</li>
+  <li>{{singleProductInput.about_short}}</li>
+  <li>{{singleProductInput.date}}</li>
+  <li>{{singleProductInput.gender}}</li>
+  <li>{{singleProductInput.sale}}</li>
+  <li>{{singleProductInput.show}}</li>
+  <li><a [routerLink]="'/products/edit/' + singleProductInput._id"
+         [queryParams]="singleProductInput">Изменить товар</a></li>
+</ul>
