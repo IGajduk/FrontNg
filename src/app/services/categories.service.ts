@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 import {Category} from '../models/Category';
 import {Product} from '../models/Product';
@@ -25,12 +25,28 @@ export class CategoriesService {
     return this.http.get<Category[]>(`${this.host}categories`);
   }
 
-  create(category: Category): Observable<Category> {
-    return this.http.post<Category>(`${this.host}categories`, category);
+  createCategory(category: Category, image?: File): Observable<Category> {
+    const fd = new FormData();
+    if (image) {
+      fd.append('image', image, image.name);
+    }
+    fd.append('title', category.title);
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    console.log(image);
+    return this.http.post<Category>(`${this.host}categories`, fd, {headers: headers});
   }
-
-  update(id: string, category: Category): Observable<Category> {
-    return this.http.put<Category>(`${this.host}categories/${id}`, category);
+  updateCategory(id: string, category: Category, image?: File): Observable<Category> {
+    const fd = new FormData();
+    if (image) {
+      fd.append('image', image, image.name);
+    }
+    fd.append('title', category.title);
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    return this.http.put<Category>(`${this.host}categories/${id}`, fd, {headers: headers});
   }
 
   delete(id: string): Observable<Category> {

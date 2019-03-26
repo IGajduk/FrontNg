@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AuthAdminGuard} from './auth.guard';
 import {AuthUserGuard} from './authUser.guard';
+import {ImagesByProductComponent} from './core/images/images-by-product/images-by-product.component';
 
 
 
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'products', loadChildren: './core/categories/all-categories/products/products.module#ProductsModule'},
   {path: 'comments', loadChildren: './core/categories/comments/comments.module#CommentsModule', canActivate: [AuthUserGuard]},
   {path: 'payments', loadChildren: './core/users/payments/payments.module#PaymentsModule', canActivate: [AuthAdminGuard]},
-  {path: 'login', loadChildren: './core/login/login.module#LoginModule'}
+  {path: 'login', loadChildren: './core/login/login.module#LoginModule'},
+  {path: 'images/:id', component: ImagesByProductComponent}
 ];
 
 @NgModule({

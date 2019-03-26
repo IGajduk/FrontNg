@@ -1,14 +1,129 @@
-<ul>
-  <li><a  routerLink="/categories">Categories</a></li>
-  <li><a  routerLink="/users">Users</a></li>
-  <li><a  routerLink="/orders">Orders</a></li>
-  <li><a  routerLink="/products">Products</a></li>
-  <li><a  routerLink="/producers">Producers</a></li>
-  <li><a  routerLink="/comments">Comments</a></li>
-  <li><a  routerLink="/payments">Payments</a></li>
-  <li><a  routerLink="/login">Login</a></li>
-</ul>
+<div class="black-nav-menu-div">
 
-<router-outlet>
+  <button class="burger-btn" type="button" mat-icon-button (click)="openCloseMenu($event)">
+    <img src="http://localhost:3000/upload/icons/baseline-menu-24px.png" alt="menu" #menuOpen>
+    <img src="http://localhost:3000/upload/icons/close-menu.png" class="display-none" alt="menu">
+  </button>
 
-</router-outlet>
+
+    <a class="link-in-btn" routerLink="/login"><img src="http://localhost:3000/upload/icons/account.png" alt="acount"></a>
+
+
+  <button class="btn" type="button" mat-icon-button>
+    <img src="http://localhost:3000/upload/icons/search.png" alt="search">
+  </button>
+
+</div>
+<mat-drawer-container class="container" autosize>
+
+
+
+  <mat-drawer #drawer class="menu-sidenav" mode="side">
+
+
+    <app-menu-tree></app-menu-tree>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<mat-accordion>-->
+      <!--<mat-expansion-panel class="text-align-center">-->
+        <!--<mat-expansion-panel-header class="nav-header-block">-->
+
+            <!--Categories-->
+
+        <!--</mat-expansion-panel-header>-->
+        <!--<a class='secondary-nav-link' routerLink="/categories">Add new category</a><br>-->
+        <!--<a class='secondary-nav-link' routerLink="/categories">Show all categories</a>-->
+      <!--</mat-expansion-panel>-->
+
+      <!--<mat-expansion-panel class="text-align-center">-->
+        <!--<mat-expansion-panel-header>-->
+          <!--<mat-panel-title>-->
+            <!--Product-->
+            <!--<hr>-->
+          <!--</mat-panel-title>-->
+        <!--</mat-expansion-panel-header>-->
+        <!--<a class='secondary-nav-link' routerLink="/products">Add new product</a><br>-->
+        <!--<a class='secondary-nav-link' routerLink="/products">Show all product</a>-->
+      <!--</mat-expansion-panel>-->
+
+      <!--<mat-expansion-panel class="text-align-center">-->
+        <!--<mat-expansion-panel-header>-->
+          <!--<mat-panel-title>-->
+            <!--Users-->
+            <!--<hr>-->
+          <!--</mat-panel-title>-->
+        <!--</mat-expansion-panel-header>-->
+        <!--<a class='secondary-nav-link' routerLink="/categories">Add new user</a><br>-->
+        <!--<a class='secondary-nav-link' routerLink="/categories">Show all users</a>-->
+      <!--</mat-expansion-panel>-->
+
+      <!--<mat-expansion-panel class="text-align-center">-->
+        <!--<mat-expansion-panel-header>-->
+          <!--<mat-panel-title>-->
+            <!--Order-->
+            <!--<hr>-->
+          <!--</mat-panel-title>-->
+        <!--</mat-expansion-panel-header>-->
+        <!--<a class='secondary-nav-link' routerLink="/categories">Done orders</a><br>-->
+        <!--<a class='secondary-nav-link' routerLink="/categories">Orders in work</a><br>-->
+        <!--<a class='secondary-nav-link' routerLink="/categories">Orders in delivery</a><br>-->
+        <!--<a class='secondary-nav-link' routerLink="/categories">Show all orders</a>-->
+      <!--</mat-expansion-panel>-->
+
+
+    <!--</mat-accordion>-->
+
+
+
+
+
+
+
+
+
+    <!--<ul class="admin-nav">-->
+      <!--<li class="li-link"><a class='main-nav-link' routerLink="/categories">Categories</a></li>-->
+      <!--<a class='secondar-nav-link' routerLink="/categories">Add new category</a><br>-->
+      <!--<a class='secondar-nav-link' routerLink="/categories">Show all categories</a>-->
+      <!--<li class="li-link"><a class='main-nav-link' routerLink="/users">Users</a></li>-->
+      <!--<a class='secondar-nav-link' routerLink="/categories">Add new user</a><br>-->
+      <!--<a class='secondar-nav-link' routerLink="/categories">Show all users</a>-->
+      <!--<li class="li-link"><a class='main-nav-link' routerLink="/orders">Orders</a></li>-->
+      <!--<a class='secondar-nav-link' routerLink="/categories">Done orders</a><br>-->
+      <!--<a class='secondar-nav-link' routerLink="/categories">Orders in work</a><br>-->
+      <!--<a class='secondar-nav-link' routerLink="/categories">Orders in delivery</a><br>-->
+      <!--<a class='secondar-nav-link' routerLink="/categories">Show all orders</a>-->
+      <!--<li class="li-link"><a class='main-nav-link' routerLink="/products">Products</a></li>-->
+      <!--<a class='secondar-nav-link' routerLink="/categories">Add new product</a><br>-->
+      <!--<a class='secondar-nav-link' routerLink="/categories">Show all product</a>-->
+      <!--<li class="li-link"><a class='main-nav-link' routerLink="/producers">Producers</a></li>-->
+      <!--<li class="li-link"><a class='main-nav-link' routerLink="/comments">Comments</a></li>-->
+      <!--<li class="li-link"><a class='main-nav-link' routerLink="/payments">Payments</a></li>-->
+      <!--<li class="li-link"><a class='main-nav-link' routerLink="/login">Login</a></li>-->
+    <!--</ul>-->
+
+  </mat-drawer>
+
+
+
+
+
+  <div class="content">
+    <router-outlet>
+    </router-outlet>
+  </div>
+
+</mat-drawer-container>

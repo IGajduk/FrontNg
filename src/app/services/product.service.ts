@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Product} from '../models/Product';
 import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Image} from '../models/Image';
+import {Category} from '../models/Category';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +27,10 @@ export class ProductService {
 
   create(product: Product): Observable<Product> {
     return this.http.post<Product>(`${this.host}products`, product);
+  }
+
+  createProduct(product: any): Observable<any> {
+    return this.http.post<any>(`${this.host}products`, product);
   }
 
   update(id: string, product: Product): Observable<Product> {

@@ -9,17 +9,30 @@ import {LoginModule} from './core/login/login.module';
 import {AuthInterceptorService} from './services/auth-interceptor.service';
 import { AuthAdminGuard } from './auth.guard';
 import {AuthUserGuard} from './authUser.guard';
+import { ImagesByProductComponent } from './core/images/images-by-product/images-by-product.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { MenuTreeModule } from './elements_of_page/menu-tree/menu-tree.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ImagesByProductComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    LoginModule
+    LoginModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatSidenavModule,
+    MatExpansionModule,
+    MenuTreeModule
   ],
   providers: [
     AuthAdminGuard,

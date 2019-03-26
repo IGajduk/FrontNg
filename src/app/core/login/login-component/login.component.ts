@@ -40,9 +40,10 @@ export class LoginComponent implements OnInit {
         for (const role of this.user.roles) {
           if (this.user.roles.indexOf(role) !== -1) {
             if (role === 'ADMIN') {
-              this.router.navigate(['payments']);
+              // this.router.navigate(['payments']);
               this.authService.setAdminLoggedIn(true);
-              return this.authService.setUserLoggedIn(true);
+              this.authService.setUserLoggedIn(true);
+              return this.checkLogin();
             } else if (role === 'USER') {
               this.router.navigate(['products']);
               return this.authService.setUserLoggedIn(true);
@@ -51,6 +52,7 @@ export class LoginComponent implements OnInit {
             }
           }
         }
+        this.checkLogin();
       }
       });
   }

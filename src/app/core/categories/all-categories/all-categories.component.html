@@ -1,20 +1,23 @@
+
 <h3>
   All-categories
 </h3>
-<div *ngIf="principalUser">
-<h5>Add category:</h5>
-<form #categoryForm="ngForm" (ngSubmit)="createCategory(categoryForm)">
-  <label>Title</label>
-  <input type="text" ngModel name="title">
-  <input type="submit" value="Add category">
-</form>
+<div class="flex-row" *ngIf="principalUser">
+  <div class="uploading-form">
+    <h5>Add category:</h5>
+    <form #categoryForm="ngForm" (ngSubmit)="createCategory(categoryForm)">
+      <span>Category</span>
+      <input type="text" ngModel name="title">
+      <input type="file" class="display-none" (change)="onFileUpload($event)" #inputImg>
+      <button (click)="triggerClick()" type="button" class="uload-img">Upload image</button>
+      <input type="submit" value="Add category">
+    </form>
+  </div>
+  <div class="image" *ngIf="imagePreview">
+    <img [src]="imagePreview" alt="category image">
+  </div>
 </div>
-<div *ngFor="let category of categories">
-<app-category
-  [categoryInput]="category"
->
+<div *ngFor="let category of categories" class="border">
+<app-category [categoryInput]="category">
 </app-category>
-  <button *ngIf="principalUser" (click)="removeCategory(category)">
-    Delete</button>
-
 </div>

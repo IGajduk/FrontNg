@@ -1,40 +1,266 @@
-<h3>
-  All-Products
-</h3>
-<h5>Add product:</h5>
-<form #productForm="ngForm" (ngSubmit)="createProduct(productForm)">
-  <label>Title:</label><br>
-  <input type="text" ngModel name="title"><br>
-  <label>Price:</label><br>
-  <input type="text" ngModel name="price"><br>
-  <label>Quantity:</label><br>
-  <input type="text" ngModel name="quantity"><br>
-  <label>Category:</label><br>
-  <input type="text" ngModel name="category"><br>
-  <label>Producer:</label><br>
-  <input type="text" ngModel name="producer"><br>
-  <label>Colors:</label><br>
-  <input type="text" ngModel name="colors"><br>
-  <label>Photos:</label><br>
-  <input type="text" ngModel name="photos"><br>
-  <label>about_all:</label><br>
-  <textarea ngModel name="about_all"></textarea><br>
-  <label>about_short:</label><br>
-  <input type="text" ngModel name="about_short"><br>
-  <label>Gender:</label><br>
-  <input type="text" ngModel name="gender"><br>
-  <label>Sale:</label><br>
-  <input type="text" ngModel name="sale"><br>
-  <label>Show or hide:</label><br>
-  <input type="text" ngModel name="show"><br>
-  <br>
-  <input type="submit" value="Add product">
-</form>
-<div *ngFor="let product of products">
-  <app-product
-    [productInput]="product"
-  >
-  </app-product>
-  <button (click)="removeProduct(product)">
-    Delete</button>
+<div class="container">
+  <mat-tab-group animationDuration="0ms">
+    <mat-tab label="Добавить продукт">
+      <form #formProduct id="formProduct" name="newProduct" class="container" autocomplete="off">
+
+        <div class="left-top-form">
+
+          <div class="input-div p-t-18">
+            <input type="text" name="title" class="input" required>
+            <span class="text-near-input">Title</span>
+          </div>
+
+          <div class="input-div">
+            <select name="category" class="select-inp">
+              <option class="option-inp" *ngFor="let category of categories"  value="{{category._id}}">{{category.title}}</option>
+            </select>
+            <span  class="text-near-select">Category</span>
+          </div>
+
+          <div class="input-div">
+            <select name="producer" class="select-inp">
+              <option class="option-inp" *ngFor="let factory of producers"  value="{{factory._id}}">{{factory.title}}</option>
+            </select>
+            <span  class="text-near-select">Producer</span>
+          </div>
+
+          <div class="input-div">
+            <select name="gender" class="select-inp">
+              <option class="option-inp" value="unisex">Unisex</option>
+              <option class="option-inp" value="male">Male</option>
+              <option class="option-inp" value="female">Female</option>
+            </select>
+            <span  class="text-near-select">Gender</span>
+          </div>
+
+          <div class="input-div">
+            <select name="show" class="select-inp">
+              <option class="option-inp" value="true">Show</option>
+              <option class="option-inp" value="false">Hide</option>
+            </select>
+            <span class="text-near-select">Show product</span>
+          </div>
+
+
+
+        </div>
+
+        <div class="right-top-form">
+          <div class="text-area-short-div">
+            <textarea type="text" name="about_short" class="textArea" required></textarea>
+            <span class="text-near-textArea">About short</span>
+          </div>
+
+          <div class="text-area-all-desc-div">
+            <textarea type="text" name="about_all" class="textArea" required></textarea>
+            <span class="text-near-textArea">About product</span>
+          </div>
+
+          <div class="input-div p-t-18">
+            <input type="text" name="case" class="input" required>
+            <span class="text-near-input">Case(Футляр)</span>
+          </div>
+
+          <div class="input-div p-t-18">
+            <input type="text" name="material" class="input" required>
+            <span class="text-near-input">Material</span>
+          </div>
+
+          <div class="input-div p-t-18">
+            <input type="text" name="protection" class="input" required>
+            <span class="text-near-input">Protection(Защита)</span>
+          </div>
+
+        </div>
+
+        <div id="color-and-images">
+
+          <span class="title-colors-block input-title-lang-ru focused-inp-title-lang">Цвета продукта</span>
+          <span class="title-colors-block input-title-lang-eng">Product colors</span>
+
+          <div id="all-uploaded-colors-picker">
+
+            <div class="picked-colors-block" #pickedColorsList>
+
+              <!--<div class="one-of-colors-block-picker picked-color-focus" id="green">-->
+                <!--<div class="only-color">-->
+                <!--</div>-->
+              <!--</div>-->
+
+            </div>
+
+            <div id="addNewColor" #addNewColor>
+              <label for="addProductColorInput">
+
+                <img src="http://localhost:3000/upload/icons/add.png" id="addProductColorButton" alt="add color">
+              </label>
+                <input name="productColor" id="addProductColorInput" type="color" value="#003310" #colorPicker>
+            </div>
+
+          </div>
+
+
+          <img id="uploadPreview" src="">
+          <div id="colors-list" #colorsList>
+
+          <div class="one-of-colors-block-descriptions focused-color-description" id="green#123">
+
+            <div class="left-block-color">
+
+              <div class="input-div-color-left">
+                <input type="text" name="colorTitle" class="input" required>
+                <span class="text-near-input">Color Title</span>
+              </div>
+
+              <div class="input-div-color-left">
+                <input type="text" name="price" class="input" required>
+                <span class="text-near-input">Price</span>
+              </div>
+
+              <div class="input-div-color-left">
+                <input type="text" name="quantity" class="input" required>
+                <span class="text-near-input">Quantity</span>
+              </div>
+
+              <div class="input-div-color-left">
+                <input type="text" name="sale" class="input" required>
+                <span class="text-near-input">Sale</span>
+              </div>
+
+            </div>
+
+            <div class="right-block-color">
+              <!--<span class="title-color-images">Images of product color</span>-->
+              <div class="glassesColorBlock">
+                <div class="picked-glass-colors">
+                  <div class="glass-color-focus-picker focused-glass-color">
+                    <div class="one-of-glass-color">
+                    </div>
+                  </div>
+                </div>
+                <div class="addGlassesNewColor">
+                  <label for="addGlassColor">
+                    <img src="http://localhost:3000/upload/icons/add.png" class="addGlassesColorButton" alt="add color">
+                  </label>
+                  <input name="glassColor" id="addGlassColor" class="glassColorInput" type="color" value="#003310">
+                </div>
+
+              </div>
+              <span class="title-colors-block input-title-lang-ru focused-inp-title-lang">Цвета линз</span>
+              <span class="title-colors-block input-title-lang-eng">Glasses colors</span>
+              <!--<div class="color-images-block">-->
+
+                  <!--<label class="add-image-label">-->
+                    <!--<img src="http://localhost:3000/upload/icons/add.png" alt="add image">-->
+                    <!--<input class="add-img-input" name="productColorImage" (change)="fileChangeEvent($event)" type="file">-->
+                  <!--</label>-->
+
+              <!--</div>-->
+            </div>
+            <div class="delete-color">
+              <a class="delete-color-picker" (click)="deleteProductColor('green#123')">
+                Delete selected color
+              </a>
+            </div>
+          </div>
+
+          </div>
+
+
+
+        </div>
+
+        <div class="lang-desc-block">
+          <i class="input-title-lang-ru focused-inp-title-lang">Переключите язык и заполните форму на обеих языках</i>
+          <i class="input-title-lang-eng">Chose language and fill the form on both languages</i>
+          <div class="lang-switch-block">
+            <div class="lang-btn focused-lang-btn ru-btn">Рус</div>
+            <div class="lang-btn eng-btn">Eng</div>
+          </div>
+        </div>
+
+        <input type="submit" (click)="submitForm()" class="submitForm input-title-lang-ru focused-inp-title-lang" value="ДОБАВИТЬ">
+        <input type="submit" (click)="submitForm()" class="submitForm input-title-lang-eng" value="ADD PRODUCT">
+      </form>
+
+    </mat-tab>
+    <mat-tab label="All products">
+
+      <div *ngFor="let product of products">
+        <app-product
+          [productInput]="product"
+        >
+        </app-product>
+        <button (click)="removeProduct(product)">
+          Delete</button>
+      </div>
+
+    </mat-tab>
+  </mat-tab-group>
+  <div class="modalbackground" #modalWindowCrop>
+    <div class="modalwindow">
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="4 / 3"
+          [resizeToWidth]="1000"
+          format="png"
+          (imageCropped)="imageCropped($event)"
+          (imageLoaded)="imageLoaded()"
+          (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+      <div class="actions-block-modal-window">
+        <a class="close-window-btn" (click)="destroyModalWindow($event)"><img src="http://localhost:3000/upload/icons/close-window.png" alt="close window"></a>
+        <img class="cropped-show-window" [src]="croppedImage">
+        <a class="save-changes-btn" (click)="saveCroppedImg($event)">Save</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-warning-bg" #modalWindowWarning>
+    <div class="modal-window-warning">
+
+      <a class="close-window-btn" (click)="destroyWarningModalWindow($event)">
+        <img src="http://localhost:3000/upload/icons/close-window.png" alt="close window">
+      </a>
+
+      <ul class="warning-message" *ngFor="let message of messages">
+        <li>{{message}}</li>
+      </ul>
+
+      <a class="ok-button" (click)="destroyWarningModalWindow($event)">
+        Ok
+      </a>
+
+    </div>
+  </div>
+
+  <div class="modal-glass-bg" #modalWindowGlassSettings>
+    <div class="modal-window-glass-settings">
+      <a class="close-window-btn" (click)="destroyGlassSettingsModalWindow($event)">
+        <img src="http://localhost:3000/upload/icons/close-window.png" alt="close window">
+      </a>
+      <div class="content-glass-in-modal">
+        <div class="for-glass-settings-inpts">
+          <label>
+            Height percent of color<br>
+            <input class="number-input-glass-percent" type="number" value="50" #firstColorHeight>
+          </label>
+          <label>
+            Height percent of white<br>
+            <input class="number-input-glass-percent" type="number" value="100" #secondColorHeight>
+          </label>
+          <label>
+            Percent of opacity<br>
+            <input class="number-input-glass-percent" type="number" value="50" #colorGlassOpacity>
+          </label>
+        </div>
+      <div id="glassPresentation"></div>
+      </div>
+      <a class="save-changes-glass-settings" (click)="createNewGlassColorPicker($event)">
+        Create glass color
+      </a>
+    </div>
+  </div>
+
 </div>

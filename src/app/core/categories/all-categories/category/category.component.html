@@ -1,6 +1,18 @@
-<ul>
-  <li><a [routerLink]="'single-edit/' + categoryInput._id"
-  [queryParams]="categoryInput">{{categoryInput._id}}</a></li>
-  <li>{{categoryInput.title}}</li>
-  <a [routerLink]="'/categories/products/' + categoryInput._id">Увидеть товары этой категории</a>
-</ul>
+<div class="flex-row">
+  <div>
+    <ul>
+        <li>
+          <a [routerLink]="'single-edit/' + categoryInput._id" [queryParams]="{_id: categoryInput._id}">
+            {{categoryInput._id}} - Edit category
+          </a>
+        </li>
+        <li>{{categoryInput.title}}</li>
+        <a [routerLink]="'/categories/products/' + categoryInput._id">Увидеть товары этой категории</a>
+        <li *ngIf="categoryInput.imageSrc">Original image name: <br> {{categoryInput.imageSrc}}</li>
+        <button *ngIf="principalUser" (click)="removeCategory(categoryInput)">Delete</button>
+    </ul>
+  </div>
+  <div class="image" *ngIf="categoryInput.imageSrc">
+    <img src="http://localhost:3000/upload/categoryImgs/{{categoryInput.imageSrc}}" alt="Category image">
+  </div>
+</div>

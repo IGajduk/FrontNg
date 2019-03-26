@@ -1,4 +1,4 @@
-export class Product{
+export class Product {
 
   constructor(
     public _id: string = '',
@@ -14,7 +14,7 @@ export class Product{
     public category: string = '',
     public producer: string = '',
     public show: string = '',
-    public sale: string = '',
-  ){
+    public sale: string = ''
+  ) {
   }
 }

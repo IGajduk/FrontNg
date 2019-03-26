@@ -1,5 +1,13 @@
-<form *ngIf="category" #categoryForm="ngForm" (ngSubmit)="updateCategory(categoryForm)">
-  <label>Title</label>
-  <input type="text" [(ngModel)]="category.title" name="title">
-  <input type="submit" value="Update category">
-</form>
+<div>
+  <form *ngIf="category" #categoryForm="ngForm" (ngSubmit)="updateCategory(categoryForm)">
+      <label>Title</label>
+      <input type="text" [(ngModel)]="category.title" name="title">
+      <input type="file" class="display-none" (change)="onFileUpload($event)" #inputImg>
+      <button (click)="triggerClick()" type="button" class="upload-img">Upload Image</button>
+      <input type="submit" value="Update category">
+  </form>
+  <div class="image" *ngIf="category.imageSrc">
+      <p>{{category.imageSrc}}</p>
+      <img [src]="imagePreview" alt="Category image">
+  </div>
+</div>
