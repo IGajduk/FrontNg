@@ -73,9 +73,20 @@
 
         </div>
 
+        <div class="for-input-images-block-type">
+
+          <select id="type-of-colors-and-images-block" class="select-inp-product-type">
+            <option class="option-inp-type-to-add" value="false" default>Выберите тип товара который хотите добавить</option>
+            <option class="option-inp-type-to-add" value="true">Очки</option>
+            <option class="option-inp-type-to-add" value="false">Другое</option>
+          </select>
+          <span  class="text-near-select-product-type">Тип товара для добавления цвета</span>
+
+        </div>
+
         <div id="color-and-images">
 
-          <span class="title-colors-block input-title-lang-ru focused-inp-title-lang">Цвета продукта</span>
+          <span class="title-colors-block input-title-lang-ru focused-inp-title-lang">Цвета товара</span>
           <span class="title-colors-block input-title-lang-eng">Product colors</span>
 
           <div id="all-uploaded-colors-picker">
@@ -105,63 +116,55 @@
 
           <div class="one-of-colors-block-descriptions focused-color-description" id="green#123">
 
-            <div class="left-block-color">
+            <!--<div class="left-block-color">-->
 
-              <div class="input-div-color-left">
-                <input type="text" name="colorTitle" class="input" required>
-                <span class="text-near-input">Color Title</span>
-              </div>
+              <!--<div class="input-div-color-left">-->
+                <!--<input type="text" name="colorTitle" class="input" required>-->
+                <!--<span class="text-near-input">Color Title</span>-->
+              <!--</div>-->
 
-              <div class="input-div-color-left">
-                <input type="text" name="price" class="input" required>
-                <span class="text-near-input">Price</span>
-              </div>
+              <!--<div class="input-div-color-left">-->
+                <!--<input type="text" name="price" class="input" required>-->
+                <!--<span class="text-near-input">Price</span>-->
+              <!--</div>-->
 
-              <div class="input-div-color-left">
-                <input type="text" name="quantity" class="input" required>
-                <span class="text-near-input">Quantity</span>
-              </div>
+              <!--<div class="input-div-color-left">-->
+                <!--<input type="text" name="quantity" class="input" required>-->
+                <!--<span class="text-near-input">Quantity</span>-->
+              <!--</div>-->
 
-              <div class="input-div-color-left">
-                <input type="text" name="sale" class="input" required>
-                <span class="text-near-input">Sale</span>
-              </div>
+              <!--<div class="input-div-color-left">-->
+                <!--<input type="text" name="sale" class="input" required>-->
+                <!--<span class="text-near-input">Sale</span>-->
+              <!--</div>-->
 
-            </div>
+            <!--</div>-->
 
-            <div class="right-block-color">
-              <!--<span class="title-color-images">Images of product color</span>-->
-              <div class="glassesColorBlock">
-                <div class="picked-glass-colors">
-                  <div class="glass-color-focus-picker focused-glass-color">
-                    <div class="one-of-glass-color">
-                    </div>
-                  </div>
-                </div>
-                <div class="addGlassesNewColor">
-                  <label for="addGlassColor">
-                    <img src="http://localhost:3000/upload/icons/add.png" class="addGlassesColorButton" alt="add color">
-                  </label>
-                  <input name="glassColor" id="addGlassColor" class="glassColorInput" type="color" value="#003310">
-                </div>
-
-              </div>
-              <span class="title-colors-block input-title-lang-ru focused-inp-title-lang">Цвета линз</span>
-              <span class="title-colors-block input-title-lang-eng">Glasses colors</span>
-              <!--<div class="color-images-block">-->
-
-                  <!--<label class="add-image-label">-->
-                    <!--<img src="http://localhost:3000/upload/icons/add.png" alt="add image">-->
-                    <!--<input class="add-img-input" name="productColorImage" (change)="fileChangeEvent($event)" type="file">-->
+            <!--<div class="right-block-color">-->
+              <!--<div class="glassesColorBlock">-->
+                <!--<div class="picked-glass-colors">-->
+                  <!--<div class="glass-color-focus-picker focused-glass-color">-->
+                    <!--<div class="one-of-glass-color">-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="addGlassesNewColor">-->
+                  <!--<label for="addGlassColor">-->
+                    <!--<img src="http://localhost:3000/upload/icons/add.png" class="addGlassesColorButton" alt="add color">-->
                   <!--</label>-->
+                  <!--<input name="glassColor" id="addGlassColor" class="glassColorInput" type="color" value="#003310">-->
+                <!--</div>-->
 
               <!--</div>-->
-            </div>
-            <div class="delete-color">
-              <a class="delete-color-picker" (click)="deleteProductColor('green#123')">
-                Delete selected color
-              </a>
-            </div>
+              <!--<span class="title-colors-block input-title-lang-ru focused-inp-title-lang">Цвета линз</span>-->
+              <!--<span class="title-colors-block input-title-lang-eng">Glasses colors</span>-->
+            <!--</div>-->
+
+            <!--<div class="delete-color">-->
+              <!--<a class="delete-color-picker" (click)="deleteProductColor('green#123')">-->
+                <!--Delete selected color-->
+              <!--</a>-->
+            <!--</div>-->
           </div>
 
           </div>

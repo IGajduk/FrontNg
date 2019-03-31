@@ -43,6 +43,7 @@ export class AllProductsComponent implements OnInit {
   croppedImage: any = '';
   messages = ['hello', 'bye'];
   glassColor: any;
+  idToAppentGlassColor: any;
 
   constructor(
     private renderer: Renderer2,
@@ -61,36 +62,27 @@ export class AllProductsComponent implements OnInit {
 
     addEventListener('change', (event: any) => {
       if (event.srcElement.id === 'addProductColorInput') {
-        const firstPartId = this.idMaker();
-        const element = event.target as HTMLInputElement;
-        const value = element.value;
-        const fullId = `${firstPartId}${value}`;
-        const idForPick = fullId.split('#')[0];
-        this.createDivColorPicker(event, idForPick);
-        this.createDivColor(event, fullId);
-        location.hash = `#${fullId}`;
+        const colorId = this.idMaker();
+        const productColor = event.target.value;
+        this.createDivColorPicker(event, colorId, productColor);
+        this.createDivColor(event, colorId, productColor);
+        location.hash = `#${colorId}`;
       }
 
-      if (event.srcElement.classList.contains('glassColorInput')) {
-          this.glassColor = event.target.value;
-          this.renderer.setStyle(this.modalWindGlassSet.nativeElement, 'display', 'block');
-          const firstColorHeight = this.firstColorHeightInput.nativeElement.value ? this.firstColorHeightInput.nativeElement.value : 50;
-          const secondColorHeght = this.secondColorHeghtInput.nativeElement.value ? this.secondColorHeghtInput.nativeElement.value : 100;
-          const colorGlassOpacity = this.colorGlassOpacitiInput.nativeElement.value ? this.colorGlassOpacitiInput.nativeElement.value : 50;
-          document.getElementById('glassPresentation')
-            .style.backgroundImage = `linear-gradient(to bottom, ${this.glassColor} ${firstColorHeight}%, #FFFFFE ${secondColorHeght}%)`;
-          document.getElementById('glassPresentation')
-            .style.filter = `opacity(${colorGlassOpacity}%)`;
+      if (event.target.id === 'type-of-colors-and-images-block') {
+        const colorAndImages = document.getElementById('color-and-images');
+        this.renderer.setStyle(colorAndImages, 'display', 'flex');
+        this.renderer.setAttribute(event.target, 'disabled', 'disabled');
       }
 
       if (event.target === this.firstColorHeightInput.nativeElement ||
         event.target === this.secondColorHeghtInput.nativeElement ||
         event.target === this.colorGlassOpacitiInput.nativeElement) {
-        this.checkGlassPreview();
+        this.checkGlassPreview(event);
       }
     });
 
-    addEventListener('click', (e) => {
+    addEventListener('click', (e: any) => {
 
       if (e.srcElement.classList.contains('only-color')) {
         const rend = this.renderer;
@@ -101,14 +93,12 @@ export class AllProductsComponent implements OnInit {
         }
         const elemObj = e.srcElement as any;
         rend.addClass(rend.parentNode(e.target), 'picked-color-focus');
-        const toElem = e.srcElement as HTMLDivElement;
-        const descId = `${rend.parentNode(e.target).id}${elemObj.productColor}`;
-        // console.log(elemObj.colorId, elemObj.productColor);
         if (prevFocusedBlock) {
           rend.removeClass(prevFocusedBlock, 'focused-color-description');
         }
-        const focusedElemBlock = document.getElementById(descId);
-        rend.addClass(focusedElemBlock, 'focused-color-description');
+       const focusedElemBlock = document.getElementById(e.target.colorId);
+
+       rend.addClass(focusedElemBlock, 'focused-color-description');
       }
 
       if (e.srcElement.classList.contains('one-of-glass-color')) {
@@ -116,9 +106,21 @@ export class AllProductsComponent implements OnInit {
         if (rend.parentNode(e.target).classList.contains('focused-glass-color')) {
           console.log('ignor');
         } else {
-          rend.removeClass(document.getElementsByClassName('focused-glass-color')[0], 'focused-glass-color');
+          if (document.getElementsByClassName('focused-glass-color')[0]) {
+            rend.removeClass(document.getElementsByClassName('focused-glass-color')[0], 'focused-glass-color');
+          }
           rend.addClass(rend.parentNode(e.target), 'focused-glass-color');
-          console.log('work well!');
+          const blocksWhithImages = document.getElementsByClassName('glass-block-color-images');
+          const prevFocusedBlock = document.getElementsByClassName('focused-block-with-glass-color-images')[0];
+          if (prevFocusedBlock) {
+          rend.removeClass(prevFocusedBlock, 'focused-block-with-glass-color-images');
+          }
+          for (let i = 0; i < blocksWhithImages.length; i++) {
+            const imagesBlock = blocksWhithImages[i] as any;
+           if (imagesBlock.glassColor === e.target.glassColor) {
+             rend.addClass(blocksWhithImages[i], 'focused-block-with-glass-color-images');
+           }
+          }
         }
       }
 
@@ -131,14 +133,31 @@ export class AllProductsComponent implements OnInit {
         }
       }
     });
-
   }
 
-  testCreateImageGlassBlock(id, blockToAppend) {
+  addGlassColorInputEvent(e: any) {
+      this.glassColor = e.target.value;
+      this.idToAppentGlassColor = e.target.parentId;
+      this.renderer.setStyle(this.modalWindGlassSet.nativeElement, 'display', 'block');
+      const firstColorHeight = this.firstColorHeightInput.nativeElement.value ? this.firstColorHeightInput.nativeElement.value : 50;
+      const secondColorHeght = this.secondColorHeghtInput.nativeElement.value ? this.secondColorHeghtInput.nativeElement.value : 100;
+      const colorGlassOpacity = this.colorGlassOpacitiInput.nativeElement.value ? this.colorGlassOpacitiInput.nativeElement.value : 50;
+      document.getElementById('glassPresentation')
+        .style.backgroundImage = `linear-gradient(to bottom, ${this.glassColor} ${firstColorHeight}%, #FFFFFE ${secondColorHeght}%)`;
+      document.getElementById('glassPresentation')
+        .style.filter = `opacity(${colorGlassOpacity}%)`;
+  }
+
+  сreateImageGlassBlock(id, glassColor, blockToAppend) {
     const rend = this.renderer;
     const rightBlockColor = rend.createElement('div');
-    rend.setAttribute(rightBlockColor, 'class', 'glass-block-color-images');
+    const prevFocusedBlock = document.getElementsByClassName('focused-block-with-glass-color-images')[0];
+    if (prevFocusedBlock) {
+    rend.removeClass(prevFocusedBlock, 'focused-block-with-glass-color-images');
+    }
+    rend.setAttribute(rightBlockColor, 'class', 'glass-block-color-images focused-block-with-glass-color-images');
     rend.appendChild(blockToAppend, rightBlockColor);
+    rightBlockColor.glassColor = glassColor;
 
     const spanImagesTitleRu = rend.createElement('span');
     rend.setAttribute(spanImagesTitleRu, 'class', 'title-glass-color-images input-title-lang-ru');
@@ -155,6 +174,7 @@ export class AllProductsComponent implements OnInit {
     const colorImagesBlock = rend.createElement('div');
     rend.setAttribute(colorImagesBlock, 'class', 'color-glass-images-block');
     rend.appendChild(rightBlockColor, colorImagesBlock);
+
     colorImagesBlock.fatherId = id;
     console.log(colorImagesBlock.fatherId);
 
@@ -165,6 +185,7 @@ export class AllProductsComponent implements OnInit {
     const addImg = rend.createElement('img');
     rend.setAttribute(addImg, 'src', 'http://localhost:3000/upload/icons/add.png');
     rend.appendChild(labelAddImg, addImg);
+    addImg.glassColor = glassColor;
 
     const imgInput = rend.createElement('input');
     rend.setAttribute(imgInput, 'class', 'add-img-input');
@@ -173,7 +194,33 @@ export class AllProductsComponent implements OnInit {
     rend.listen(imgInput, 'change', (event) => {
       this.fileChangeEvent(event);
     });
+    imgInput.glassColor = glassColor;
     rend.appendChild(labelAddImg, imgInput);
+
+    const blockDeleteBtn = rend.createElement('div');
+    rend.setAttribute(blockDeleteBtn, 'class', 'delete-glass-color-block');
+
+    const deleteGlassBtn = rend.createElement('a');
+    rend.setAttribute(deleteGlassBtn, 'class', 'delete-glass-color-button');
+    rend.appendChild(deleteGlassBtn, rend.createText('Delete selected glass color'));
+    rend.appendChild(blockDeleteBtn, deleteGlassBtn);
+    rend.listen(deleteGlassBtn, 'click', (e) => {
+      this.deleteProductGlassColor(e);
+    });
+
+
+    // <div class="delete-glass-color-block">
+    // <a class="delete-glass-color-button">
+    // Delete selected glass color
+    // </a>
+    // </div>
+
+
+
+
+
+
+    rend.appendChild(rightBlockColor, blockDeleteBtn);
 
     const focusedLangBtn = document.getElementsByClassName('focused-lang-btn')[0];
     if (focusedLangBtn.classList.contains('ru-btn')) {
@@ -184,7 +231,7 @@ export class AllProductsComponent implements OnInit {
 
   }
 
-  checkGlassPreview() {
+  checkGlassPreview(event) {
     const glassPreview = document.getElementById('glassPresentation');
     const firstColorHeight = this.firstColorHeightInput.nativeElement.value;
     const secondColorHeght = this.secondColorHeghtInput.nativeElement.value;
@@ -198,24 +245,36 @@ export class AllProductsComponent implements OnInit {
   }
 
   createNewGlassColorPicker(e) {
-    const pickedGlassesColors = document.getElementsByClassName('picked-glass-colors')[0];
     const rend = this.renderer;
     const pickedGlassColor = rend.createElement('div');
-    rend.removeClass(document.getElementsByClassName('focused-glass-color')[0], 'focused-glass-color');
     rend.setAttribute(pickedGlassColor, 'class', 'focused-glass-color glass-color-focus-picker');
-    rend.appendChild(pickedGlassesColors, pickedGlassColor);
-
+    const prevFocusedGlassColor = document.getElementsByClassName('focused-glass-color')[0];
     const glassColor = rend.createElement('div');
+    glassColor.glassColor = this.glassColor;
+    if (prevFocusedGlassColor) {
+      rend.removeClass(prevFocusedGlassColor, 'focused-glass-color');
+    }
+    const pickedGlassesColors = document.getElementsByClassName('picked-glass-colors') as any;
+    for (let i = 0; i < pickedGlassesColors.length; i++) {
+      const glassColorsBlock = pickedGlassesColors[i];
+      if (glassColorsBlock.parentId === this.idToAppentGlassColor) {
+        rend.appendChild(glassColorsBlock, pickedGlassColor);
+        const blockToInsertImagesBlock = rend.parentNode(rend.parentNode(glassColorsBlock));
+        this.сreateImageGlassBlock('id', glassColor.glassColor, blockToInsertImagesBlock);
+      }
+    }
+
     rend.addClass(glassColor, 'one-of-glass-color');
     rend.appendChild(pickedGlassColor, glassColor);
     const blockWhithGlassStyles = document.getElementById('glassPresentation');
     rend.setStyle(glassColor, 'backgroundImage', blockWhithGlassStyles.style.backgroundImage);
     rend.setStyle(glassColor, 'filter', blockWhithGlassStyles.style.filter);
 
+
+
     rend.setStyle(this.modalWindGlassSet.nativeElement, 'display', 'none');
     // this.blockWithColorGlassImagesCreate();
-    const blockToInsertImagesBlock = rend.parentNode(rend.parentNode(pickedGlassesColors));
-    this.testCreateImageGlassBlock('id', blockToInsertImagesBlock);
+    this.glassColor = '';
   }
 
   blockWithColorGlassImagesCreate() {
@@ -330,7 +389,7 @@ export class AllProductsComponent implements OnInit {
     // show message
   }
 
-createDivColorPicker(e, id) {
+createDivColorPicker(e, id, productColor) {
     const rend = this.renderer;
     const div = rend.createElement('div');
     const divColor = rend.createElement('div');
@@ -339,17 +398,18 @@ createDivColorPicker(e, id) {
       rend.removeClass(prevFocus[0], 'picked-color-focus');
     }
     rend.setAttribute(div, 'class', 'one-of-colors-block-picker picked-color-focus');
-    rend.setAttribute(div, 'id', id);
     rend.setAttribute(divColor, 'class', 'only-color');
-    rend.setStyle(divColor, 'background', e.target.value);
+    rend.setStyle(divColor, 'background', productColor);
     divColor.productColor = e.target.value;
     divColor.colorId = id;
+    console.log(divColor.colorId);
     rend.appendChild(div, divColor);
     rend.appendChild(this.pickedColorsList.nativeElement, div);
 }
 
-createDivColor(e, id) {
+createDivColor(e, id, productColor) {
   const rend = this.renderer;
+  const focusedLangBtn = document.getElementsByClassName('focused-lang-btn')[0];
     const prevFocusedBlock = document.getElementsByClassName('focused-color-description')[0];
     if (prevFocusedBlock) {
       rend.removeClass(prevFocusedBlock, 'focused-color-description');
@@ -358,6 +418,10 @@ createDivColor(e, id) {
   rend.setAttribute(divMainBlock, 'class', 'one-of-colors-block-descriptions');
   rend.setAttribute(divMainBlock, 'id', id);
   rend.addClass(divMainBlock, 'focused-color-description');
+
+
+
+  const inputOfProductType = document.getElementById('type-of-colors-and-images-block') as any;
 
   // Block ENG starts
   const leftBlockColor = rend.createElement('div');
@@ -513,47 +577,130 @@ createDivColor(e, id) {
   rend.appendChild(spanSaleRu, rend.createText('Скидка'));
   rend.appendChild(iDCLSaleRu, spanSaleRu);
 
-// Block rus end
-
-
   const rightBlockColor = rend.createElement('div');
   rend.setAttribute(rightBlockColor, 'class', 'right-block-color');
   rend.appendChild(divMainBlock, rightBlockColor);
-
-  const spanImagesTitleRu = rend.createElement('span');
-  rend.setAttribute(spanImagesTitleRu, 'class', 'title-color-images input-title-lang-ru');
-  rend.appendChild(spanImagesTitleRu, rend.createText('Фотографии продукта выбраного цвета'));
-  rend.appendChild(rightBlockColor, spanImagesTitleRu);
+  console.log(inputOfProductType.value, 'input type of product');
 
 
+  if (inputOfProductType.value === 'true') {
+    const glassColorBlock = rend.createElement('div');
+    rend.addClass(glassColorBlock, 'glassesColorBlock');
+    rend.appendChild(rightBlockColor, glassColorBlock);
 
-  const spanImagesTitleEng = rend.createElement('span');
-  rend.setAttribute(spanImagesTitleEng, 'class', 'title-color-images input-title-lang-eng');
-  rend.appendChild(spanImagesTitleEng, rend.createText('Images of product selected color'));
-  rend.appendChild(rightBlockColor, spanImagesTitleEng);
+    const pickedGlassColors = rend.createElement('div');
+    rend.addClass(pickedGlassColors, 'picked-glass-colors');
+    rend.appendChild(glassColorBlock, pickedGlassColors);
+    pickedGlassColors.parentId = id;
+    console.log(pickedGlassColors.parentId);
 
-  const colorImagesBlock = rend.createElement('div');
-  rend.setAttribute(colorImagesBlock, 'class', 'color-images-block');
-  rend.appendChild(rightBlockColor, colorImagesBlock);
-  colorImagesBlock.fatherId = id;
-  console.log(colorImagesBlock.fatherId);
+    const addGlassNewColorBlockForInput = rend.createElement('div');
+    rend.addClass(addGlassNewColorBlockForInput, 'addGlassesNewColor');
+    rend.appendChild(glassColorBlock, addGlassNewColorBlockForInput);
 
-  const labelAddImg = rend.createElement('label');
-  rend.setAttribute(labelAddImg, 'class', 'add-image-label');
-  rend.appendChild(colorImagesBlock, labelAddImg);
+    const labelForInput = rend.createElement('label');
+    const idForInput = this.idMaker();
+    rend.setAttribute(labelForInput, 'for', idForInput);
+    rend.appendChild(addGlassNewColorBlockForInput, labelForInput);
 
-  const addImg = rend.createElement('img');
-  rend.setAttribute(addImg, 'src', 'http://localhost:3000/upload/icons/add.png');
-  rend.appendChild(labelAddImg, addImg);
+    rend.setStyle(labelForInput, 'zIndex', '999');
 
-  const imgInput = rend.createElement('input');
-  rend.setAttribute(imgInput, 'class', 'add-img-input');
-  rend.setAttribute(imgInput, 'name', 'productColorImage');
-  rend.setAttribute(imgInput, 'type', 'file');
-  rend.listen(imgInput, 'change', (event) => {
-    this.fileChangeEvent(event);
-  });
-  rend.appendChild(labelAddImg, imgInput);
+    const imgAddGlassColor = rend.createElement('img');
+    rend.setAttribute(imgAddGlassColor, 'src', 'http://localhost:3000/upload/icons/add.png');
+    rend.addClass(imgAddGlassColor, 'addGlassesColorButton');
+    rend.appendChild(labelForInput, imgAddGlassColor);
+
+    const inputAddGlassColor = rend.createElement('input');
+    rend.setAttribute(inputAddGlassColor, 'id', idForInput);
+    rend.setAttribute(inputAddGlassColor, 'class', 'glassColorInput');
+    rend.setAttribute(inputAddGlassColor, 'name', 'glassColor');
+    rend.setAttribute(inputAddGlassColor, 'value', '#003310');
+    rend.setAttribute(inputAddGlassColor, 'type', 'color');
+    rend.listen(inputAddGlassColor, 'change', (evnt) => {
+      this.addGlassColorInputEvent(evnt);
+    });
+    inputAddGlassColor.parentId = id;
+    rend.appendChild(labelForInput, inputAddGlassColor);
+
+    const spanRusTitleGlass = rend.createElement('span');
+    rend.setAttribute(spanRusTitleGlass, 'class', 'title-colors-block input-title-lang-ru');
+    rend.appendChild(spanRusTitleGlass, rend.createText('Цвета линз'));
+    rend.appendChild(glassColorBlock, spanRusTitleGlass);
+
+    const spanEngTitleGlass = rend.createElement('span');
+    rend.setAttribute(spanEngTitleGlass, 'class', 'title-colors-block input-title-lang-eng');
+    rend.appendChild(spanEngTitleGlass, rend.createText('Glasses colors'));
+    rend.appendChild(glassColorBlock, spanEngTitleGlass);
+
+    if (focusedLangBtn.classList.contains('ru-btn')) {
+      rend.addClass(spanRusTitleGlass, 'focused-inp-title-lang');
+    } else {
+      rend.addClass(spanEngTitleGlass, 'focused-inp-title-lang');
+    }
+
+
+
+    // <div class="glassesColorBlock">
+    // <div class="picked-glass-colors">
+    // <div class="glass-color-focus-picker focused-glass-color">
+    // <div class="one-of-glass-color">
+    //   </div>
+    //   </div>
+    //   </div>
+    //   <div class="addGlassesNewColor">
+    //   <label for="addGlassColor">
+    // <img src="http://localhost:3000/upload/icons/add.png" class="addGlassesColorButton" alt="add color">
+    //   </label>
+    //   <input name="glassColor" id="addGlassColor" class="glassColorInput" type="color" value="#003310">
+    //   </div>
+    //
+    //   </div>
+    //   <span class="title-colors-block input-title-lang-ru focused-inp-title-lang">Цвета линз</span>
+    // <span class="title-colors-block input-title-lang-eng">Glasses colors</span>
+
+  } else if (inputOfProductType.value === 'false') {
+    const spanImagesTitleRu = rend.createElement('span');
+    rend.setAttribute(spanImagesTitleRu, 'class', 'title-color-images input-title-lang-ru');
+    rend.appendChild(spanImagesTitleRu, rend.createText('Фотографии продукта выбраного цвета'));
+    rend.appendChild(rightBlockColor, spanImagesTitleRu);
+
+    const spanImagesTitleEng = rend.createElement('span');
+    rend.setAttribute(spanImagesTitleEng, 'class', 'title-color-images input-title-lang-eng');
+    rend.appendChild(spanImagesTitleEng, rend.createText('Images of product selected color'));
+    rend.appendChild(rightBlockColor, spanImagesTitleEng);
+
+    const colorImagesBlock = rend.createElement('div');
+    rend.setAttribute(colorImagesBlock, 'class', 'color-images-block');
+    rend.appendChild(rightBlockColor, colorImagesBlock);
+    colorImagesBlock.fatherId = id;
+    console.log(colorImagesBlock.fatherId);
+
+    const labelAddImg = rend.createElement('label');
+    rend.setAttribute(labelAddImg, 'class', 'add-image-label');
+    rend.appendChild(colorImagesBlock, labelAddImg);
+
+    const addImg = rend.createElement('img');
+    rend.setAttribute(addImg, 'src', 'http://localhost:3000/upload/icons/add.png');
+    rend.appendChild(labelAddImg, addImg);
+
+    const imgInput = rend.createElement('input');
+    rend.setAttribute(imgInput, 'class', 'add-img-input');
+    rend.setAttribute(imgInput, 'name', 'productColorImage');
+    rend.setAttribute(imgInput, 'type', 'file');
+    rend.listen(imgInput, 'change', (event) => {
+      this.fileChangeEvent(event);
+    });
+    rend.appendChild(labelAddImg, imgInput);
+
+    if (focusedLangBtn.classList.contains('ru-btn')) {
+      rend.addClass(spanImagesTitleRu, 'focused-inp-title-lang');
+    } else {
+      rend.addClass(spanImagesTitleEng, 'focused-inp-title-lang');
+    }
+// Block rus end
+}
+
+
 
   const deleteColorBlock = rend.createElement('div');
   rend.setAttribute(deleteColorBlock, 'class', 'delete-color');
@@ -575,13 +722,11 @@ createDivColor(e, id) {
   });
   rend.appendChild(deleteColorBlock, deleteColorButtonEng);
 
-  const focusedLangBtn = document.getElementsByClassName('focused-lang-btn')[0];
+
   if (focusedLangBtn.classList.contains('ru-btn')) {
-    rend.addClass(spanImagesTitleRu, 'focused-inp-title-lang');
     rend.addClass(deleteColorButtonRu, 'focused-inp-title-lang');
     rend.addClass(leftBlockColorRu, 'left-block-color-focus');
   } else {
-    rend.addClass(spanImagesTitleEng, 'focused-inp-title-lang');
     rend.addClass(deleteColorButtonEng, 'focused-inp-title-lang');
     rend.addClass(leftBlockColor, 'left-block-color-focus');
   }
@@ -589,14 +734,22 @@ createDivColor(e, id) {
   rend.appendChild(this.colorsList.nativeElement, divMainBlock);
 }
 
-
+deleteProductGlassColor(e) {
+  if (confirm('You sure, you want to delete color?')) {
+    const rend = this.renderer;
+    const pickedGlassPicker = document.getElementsByClassName('focused-glass-color')[0];
+    const pickedBlockWithGlassImages = document.getElementsByClassName('focused-block-with-glass-color-images')[0];
+    pickedGlassPicker.remove();
+    pickedBlockWithGlassImages.remove();
+  }
+}
 
 deleteProductColor(id) {
     if (confirm('You sure, you want to delete color?')) {
       const rend = this.renderer;
       document.getElementById(id).remove();
-      const pickerBlock = id.split('#')[0];
-      document.getElementById(pickerBlock).remove();
+      const pickerBlock = document.getElementsByClassName('picked-color-focus')[0];
+      pickerBlock.remove();
     }
 }
 
@@ -648,6 +801,9 @@ createImgElem() {
   rend.appendChild(divPosRel, delImg);
   rend.appendChild(divImg, divPosRel);
   rend.insertBefore(rend.parentNode(insertBeforeThisElem), divImg, insertBeforeThisElem);
+  if (insertBeforeThisElem.lastChild.glassColor) {
+    img.glassColor = insertBeforeThisElem.lastChild.glassColor;
+  }
 }
 
 private getProducts() {
