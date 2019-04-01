@@ -164,8 +164,6 @@ export class AllProductsComponent implements OnInit {
     rend.appendChild(spanImagesTitleRu, rend.createText('Фотографии продукта выбраного цвета линз:'));
     rend.appendChild(rightBlockColor, spanImagesTitleRu);
 
-
-
     const spanImagesTitleEng = rend.createElement('span');
     rend.setAttribute(spanImagesTitleEng, 'class', 'title-glass-color-images input-title-lang-eng');
     rend.appendChild(spanImagesTitleEng, rend.createText('Images of product selected glasses color:'));
